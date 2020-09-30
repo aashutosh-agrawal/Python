@@ -3,6 +3,7 @@ import speech_recognition as sr
 import datetime
 import webbrowser
 import wikipedia
+import smtplib
 import os
 
 ghost = pyttsx3.init()
@@ -37,6 +38,13 @@ def getCommand():
 		print("Sorry.. May I beg Your pardon!")
 		return "None"
 	return query
+def sendEmail(to, content):
+	server = smtplib.SMTP('smtp.gmail.com', 587)
+	server.ehlo()
+	server.starttls()
+	server.login('youremail@gmail.com', 'your-password')
+	server.sendmail('youremail@gmail.com', to, content)
+	server.close()
 
 if __name__ == "__main__":
 	greet()
@@ -49,7 +57,15 @@ if __name__ == "__main__":
 			webbrowser.open("youtube.com")
 		elif 'open geeksforgeeks' in query:
 			webbrowser.open("geeksforgeeks.com")
-
+      
+    elif 'wikipedia' in query:
+			talk('Searching Wikipedia')
+			query = query.replace("wikipedia", "")
+			results = wikipedia.summary(query, sentences = 2)
+			talk("According to Wikipedia")
+			print(results)
+			talk(results)
+      
 		elif 'play music' in query:
 			music_dir = 'C:\\Manav\\Songs\\MyFavourites'
 			songs = os.listdir(music_dir)
@@ -63,15 +79,18 @@ if __name__ == "__main__":
 		elif 'open code' in query:
 			codePath = "C:\\Users\\Manav\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
 			os.startfile(codePath)
+      
+    elif 'email to tanishq' in query:
+			try:
+				talk("What is the message")
+				content = getCommand()
+				to = "tanishq\'sEmail@gmail.com"
+				sendEmail(to, content)
+				talk("Email has been sent!")
+			except Exception as e:
+				print(e)
+				talk("Sorry sir, there was some error in conectivity, the email could not be sent")
 
 		elif 'go to sleep' in query:
 			talk("Going on standby Sir! You can call me anytime")
 			break
-        
-        elif 'wikipedia' in query:
-			talk('Searching Wikipedia')
-			query = query.replace("wikipedia", "")
-			results = wikipedia.summary(query, sentences = 2)
-			talk("According to Wikipedia")
-			print(results)
-			talk(results)
