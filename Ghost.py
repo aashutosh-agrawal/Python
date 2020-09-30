@@ -2,6 +2,7 @@ import pyttsx3
 import speech_recognition as sr
 import datetime
 import webbrowser
+import wikipedia
 import os
 
 ghost = pyttsx3.init()
@@ -66,3 +67,11 @@ if __name__ == "__main__":
 		elif 'go to sleep' in query:
 			talk("Going on standby Sir! You can call me anytime")
 			break
+        
+        elif 'wikipedia' in query:
+			talk('Searching Wikipedia')
+			query = query.replace("wikipedia", "")
+			results = wikipedia.summary(query, sentences = 2)
+			talk("According to Wikipedia")
+			print(results)
+			talk(results)
