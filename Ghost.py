@@ -4,13 +4,13 @@ import datetime
 import webbrowser
 import os
 
-jarvis = pyttsx3.init()
-voices = jarvis.getProperty('voices')
-jarvis.setProperty('voice', voices[0].id)
+ghost = pyttsx3.init()
+voices = ghost.getProperty('voices')
+ghost.setProperty('voice', voices[0].id)
 
 def talk(audio):
-	jarvis.say(audio)
-	jarvis.runAndWait()
+	ghost.say(audio)
+	ghost.runAndWait()
 
 def greet():
 	cur_time = int(datetime.datetime.now().hour)
@@ -20,7 +20,7 @@ def greet():
 		talk("Good Afternoon!")
 	else:
 		talk("Good Evening!")
-	talk("This is your personal assistant Jarvis. How may I help you!")
+	talk("This is your personal assistant ghost. How may I help you!")
 
 def getCommand():
 	r = sr.Recognizer()
