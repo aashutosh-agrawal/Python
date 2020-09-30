@@ -2,6 +2,7 @@ import pyttsx3
 import speech_recognition as sr
 import datetime
 import webbrowser
+import smtplib
 import os
 
 ghost = pyttsx3.init()
@@ -36,6 +37,13 @@ def getCommand():
 		print("Sorry.. May I beg Your pardon!")
 		return "None"
 	return query
+def sendEmail(to, content):
+	server = smtplib.SMTP('smtp.gmail.com', 587)
+	server.ehlo()
+	server.starttls()
+	server.login('youremail@gmail.com', 'your-password')
+	server.sendmail('youremail@gmail.com', to, content)
+	server.close()
 
 if __name__ == "__main__":
 	greet()
@@ -66,3 +74,14 @@ if __name__ == "__main__":
 		elif 'go to sleep' in query:
 			talk("Going on standby Sir! You can call me anytime")
 			break
+        
+        elif 'email to tanishq' in query:
+			try:
+				talk("What is the message")
+				content = getCommand()
+				to = "tanishq\'sEmail@gmail.com"
+				sendEmail(to, content)
+				talk("Email has been sent!")
+			except Exception as e:
+				print(e)
+				talk("Sorry sir, there was some error in conectivity, the email could not be sent")
