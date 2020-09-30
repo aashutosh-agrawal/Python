@@ -1,18 +1,18 @@
 import pyttsx3
 import speech_recognition as sr
+import wikipedia
 import datetime
 import webbrowser
-import wikipedia
-import smtplib
 import os
+import smtplib
 
-ghost = pyttsx3.init()
-voices = ghost.getProperty('voices')
-ghost.setProperty('voice', voices[0].id)
+jarvis = pyttsx3.init()
+voices = jarvis.getProperty('voices')
+jarvis.setProperty('voice', voices[0].id)
 
 def talk(audio):
-	ghost.say(audio)
-	ghost.runAndWait()
+	jarvis.say(audio)
+	jarvis.runAndWait()
 
 def greet():
 	cur_time = int(datetime.datetime.now().hour)
@@ -22,7 +22,7 @@ def greet():
 		talk("Good Afternoon!")
 	else:
 		talk("Good Evening!")
-	talk("This is your personal assistant ghost. How may I help you!")
+	talk("This is your personal assistant Jarvis. How may I help you!")
 
 def getCommand():
 	r = sr.Recognizer()
@@ -38,6 +38,7 @@ def getCommand():
 		print("Sorry.. May I beg Your pardon!")
 		return "None"
 	return query
+
 def sendEmail(to, content):
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.ehlo()
@@ -51,21 +52,21 @@ if __name__ == "__main__":
 	while True:
 		query = getCommand().lower()
 
-		if 'open google' in query:
-			webbrowser.open("google.com")
-		elif 'open youtube' in query:
-			webbrowser.open("youtube.com")
-		elif 'open geeksforgeeks' in query:
-			webbrowser.open("geeksforgeeks.com")
-      
-    elif 'wikipedia' in query:
+		if 'wikipedia' in query:
 			talk('Searching Wikipedia')
 			query = query.replace("wikipedia", "")
 			results = wikipedia.summary(query, sentences = 2)
 			talk("According to Wikipedia")
 			print(results)
 			talk(results)
-      
+
+		elif 'open google' in query:
+			webbrowser.open("google.com")
+		elif 'open youtube' in query:
+			webbrowser.open("youtube.com")
+		elif 'open geeksforgeeks' in query:
+			webbrowser.open("geeksforgeeks.com")
+
 		elif 'play music' in query:
 			music_dir = 'C:\\Manav\\Songs\\MyFavourites'
 			songs = os.listdir(music_dir)
@@ -79,8 +80,8 @@ if __name__ == "__main__":
 		elif 'open code' in query:
 			codePath = "C:\\Users\\Manav\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
 			os.startfile(codePath)
-      
-    elif 'email to tanishq' in query:
+		
+		elif 'email to tanishq' in query:
 			try:
 				talk("What is the message")
 				content = getCommand()
@@ -90,7 +91,6 @@ if __name__ == "__main__":
 			except Exception as e:
 				print(e)
 				talk("Sorry sir, there was some error in conectivity, the email could not be sent")
-
 		elif 'go to sleep' in query:
 			talk("Going on standby Sir! You can call me anytime")
 			break
