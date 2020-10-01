@@ -66,6 +66,8 @@ if __name__ == "__main__":
 			webbrowser.open("youtube.com")
 		elif 'open geeksforgeeks' in query:
 			webbrowser.open("geeksforgeeks.com")
+		elif 'open stackoverflow' in query:
+			webbrowser.open("stackoverflow.com")
 
 		elif 'play music' in query:
 			music_dir = 'C:\\Manav\\Songs\\MyFavourites'
