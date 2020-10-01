@@ -69,7 +69,7 @@ if __name__ == "__main__":
 		elif 'open stackoverflow' in query:
 			webbrowser.open("stackoverflow.com")
 
-		elif 'play music' in query:
+    elif 'play music' in query:
 			music_dir = 'C:\\Manav\\Songs\\MyFavourites'
 			songs = os.listdir(music_dir)
 			print(songs)
